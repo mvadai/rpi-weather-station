@@ -21,5 +21,5 @@ class GP2Y10:
                 cnt += 1
                 continue
             else:
-                self.dust = ((float(data.group(1)))*5090/1024-500)*1/6
+                self.dust = ((float(data.group(1)))*5090/1024-500)*1/6000
                 break
