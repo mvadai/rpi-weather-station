@@ -1,4 +1,4 @@
-#define F_CPU 8000000L
+#define F_CPU 8000000L //fuses have to be set: -U lfuse:w:0xe2:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
