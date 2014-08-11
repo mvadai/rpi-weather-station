@@ -71,7 +71,7 @@ void uv_measurement(){
 	uv = (uv + 2) >> 2; //taking the average of the readings
 	low = (uv & 0xFF); // truncate 16 bits to 8
 	high = (uv >> 8); // get the high byte
-	state = 4;
+	state = 2;
 }
 
 static void twi_callback(uint8_t input_buffer_length, const uint8_t *input_buffer,
@@ -88,26 +88,15 @@ static void twi_callback(uint8_t input_buffer_length, const uint8_t *input_buffe
 		*output_buffer_length = 8;
 		switch(state)
 		{
-			case(2):{ // dust data high byte
+			case(2):{ // sending data high byte
 				*output_buffer = high;
 				state = 1;
 				break;
 			}
-			case(1):{ // dust data low byte
+			case(1):{ // sending data low byte
 				*output_buffer = low;
 				state = 0;
 				break;
-			}
-			case(4):{ // uv data high byte
-				*output_buffer = high;
-				state = 3;
-				break;
-			}
-			case(3):{ // uv data low byte
-				*output_buffer = low;
-				state = 0;
-				break;
-			}
 			case(0):{ // sending device id
 				*output_buffer = 3;
 				break;
