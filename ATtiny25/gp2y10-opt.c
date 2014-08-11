@@ -42,7 +42,7 @@ void dust_measurement(){
 	ADC_input(3);
 	uint8_t i = 4;
 	uint16_t dust = 0;
-	while (i > 0){
+	do{
 		PORTB &= ~(1 << PB1);
 		_delay_us(280);
 		dust += ADCL;
@@ -51,7 +51,7 @@ void dust_measurement(){
 		PORTB |= (1 << PB1);
 		_delay_us(9680);
 		--i;
-		}
+	}while (i > 0);
 	dust = (dust + 2) >> 2; //taking the average of 4 readings
 	low = (dust & 0xFF); // truncate 16 bits to 8
 	high = (dust >> 8); // get the high byte
@@ -62,12 +62,12 @@ void uv_measurement(){
 	ADC_input(2);
 	uint8_t i = 4;
 	uint16_t uv = 0;
-	while (i > 0){
+	do{
 		uv += ADCL;
 		uv += (ADCH << 8);
 		_delay_us(100);
 		--i;
-	}
+	}while (i > 0);
 	uv = (uv + 2) >> 2; //taking the average of the readings
 	low = (uv & 0xFF); // truncate 16 bits to 8
 	high = (uv >> 8); // get the high byte
