@@ -38,6 +38,13 @@ void ADC_enable(uint8_t def_pin){
 	ADCSRA |= (1 << ADSC); 
 }
 
+void average(uint16_t sum){
+	sum = ((sum + 2) >> 2); //taking the average of the readings
+	low = (sum & 0xFF); // truncate 16 bits to 8
+	high = (sum >> 8); // get the high byte
+	state = 2;
+	}
+
 void dust_measurement(){
 	ADC_input(3);
 	uint8_t i = 4;
@@ -52,10 +59,7 @@ void dust_measurement(){
 		_delay_us(9680);
 		--i;
 	}while (i > 0);
-	dust = (dust + 2) >> 2; //taking the average of 4 readings
-	low = (dust & 0xFF); // truncate 16 bits to 8
-	high = (dust >> 8); // get the high byte
-	state = 2;
+	average(dust);
 }
 
 void uv_measurement(){
@@ -68,10 +72,7 @@ void uv_measurement(){
 		_delay_us(100);
 		--i;
 	}while (i > 0);
-	uv = (uv + 2) >> 2; //taking the average of the readings
-	low = (uv & 0xFF); // truncate 16 bits to 8
-	high = (uv >> 8); // get the high byte
-	state = 2;
+	average(uv);
 }
 
 static void twi_callback(uint8_t input_buffer_length, const uint8_t *input_buffer,
