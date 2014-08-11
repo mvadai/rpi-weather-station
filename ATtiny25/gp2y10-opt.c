@@ -97,6 +97,7 @@ static void twi_callback(uint8_t input_buffer_length, const uint8_t *input_buffe
 				*output_buffer = low;
 				state = 0;
 				break;
+			}
 			case(0):{ // sending device id
 				*output_buffer = 3;
 				break;
