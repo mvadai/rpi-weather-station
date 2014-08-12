@@ -15,17 +15,6 @@ uint8_t dusth;
 uint8_t dustl;
 uint8_t state = 0;
 
-void blink(int no){
-	int i = 0;
-	while( i < no ){
-		PORTB |= (1 << PB1);
-		_delay_ms(200);
-		PORTB &= ~(1 << PB1);
-		_delay_ms(200);
-		i++;
-	}
-}
-
 void ADC_input(uint8_t pin){
 	ADMUX &= ~(1 << MUX3);
 	ADMUX &= ~(1 << MUX2);
