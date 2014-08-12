@@ -43,13 +43,13 @@ void dust_measurement(){
 
 void uv_measurement(){
 	ADMUX |= (1 << MUX0);
-	_delay_us(200);
+	_delay_us(200); // wait for the first conversion to happen
 	uint8_t i = 4;
 	uint16_t uv = 0;
 	do{
 		uv += ADCL;
 		uv += (ADCH << 8);
-		_delay_us(100);
+		_delay_us(124);
 		--i;
 	}while (i > 0);
 	average(uv);
