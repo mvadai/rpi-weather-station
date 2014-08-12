@@ -1,7 +1,7 @@
 /*
  * This is the optimized version of the gp2y10-learn.c with averaging. 
  * Learn about the optimizations here
- * http://mihalysprojects.weebly.com/blog/some-avr-c-code-optimization
+ * http://mihalysprojects.weebly.com/blog/avr-c-code-optimization
  */
 #define F_CPU 8000000L
 #include <avr/io.h>
